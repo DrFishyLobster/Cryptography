@@ -7,7 +7,7 @@ namespace CodeRunner
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine(CaeserCipher.Solve("IFMMP"));
+            Console.WriteLine(CaeserCipher.Solve("QEB NRFZH YOLTK CLU GRJMP LSBO QEB IXWV ALD", Mode.Alphabet));
         }
     }
 }

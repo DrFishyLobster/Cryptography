@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptography", "Cryptography.csproj", "{B21F0ECA-A9E8-4970-98E0-99FFF46D8734}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptography", "Cryptography\Cryptography.csproj", "{B21F0ECA-A9E8-4970-98E0-99FFF46D8734}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptographyTests", "..\CryptographyTests\CryptographyTests.csproj", "{3499EA28-A3EF-4734-A35C-15FA62BACBD6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptographyTests", "CryptographyTests\CryptographyTests.csproj", "{3499EA28-A3EF-4734-A35C-15FA62BACBD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeRunner", "..\CodeRunner\CodeRunner.csproj", "{161C45F5-D370-4266-BC34-48D35934C37D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeRunner", "CodeRunner\CodeRunner.csproj", "{161C45F5-D370-4266-BC34-48D35934C37D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

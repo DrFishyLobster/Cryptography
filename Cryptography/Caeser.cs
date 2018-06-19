@@ -10,11 +10,12 @@
             string CipherText = "";
             foreach (var character in PlainText)
             {
+              
                 if (mode == Mode.Alphabet)
                 {
                     if (!character.IsAlphabetic()) continue;
                     int positionInAlphabet = (int)character - 65;
-                    int shifted = (positionInAlphabet + Key) % 26;
+                    int shifted = (positionInAlphabet + Key%26+26) % 26;
                     CipherText += (char)(shifted + 65);
                 }
                 else
@@ -37,6 +38,7 @@
             for (int key = 0; key <= 25; key++)
             {
                 string temp = Decrypt(CipherText, key);
+               
                 float tempscore = LetterFrequency.GenerateFrequency(temp).Compare(LetterFrequency.EnglishLetterFrequency);
                 if (tempscore > score)
                 {
