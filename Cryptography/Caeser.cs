@@ -6,17 +6,16 @@
     {
         public static string Encrypt(string PlainText, int Key, Mode mode = Mode.Alphabet)
         {
-            PlainText = PlainText.ToUpper();
+            //PlainText = PlainText.ToUpper();
             string CipherText = "";
             foreach (var character in PlainText)
             {
-              
                 if (mode == Mode.Alphabet)
                 {
                     if (!character.IsAlphabetic()) continue;
-                    int positionInAlphabet = (int)character - 65;
-                    int shifted = (positionInAlphabet + Key%26+26) % 26;
-                    CipherText += (char)(shifted + 65);
+                    int positionInAlphabet = character.IsUpper() ? (int)character - 65 : (int)character - 97;
+                    int shifted = (positionInAlphabet + Key % 26 + 26) % 26;
+                    CipherText += (char)(shifted + (character.IsUpper() ? 65 : 97));
                 }
                 else
                 {
@@ -25,28 +24,42 @@
             }
             return CipherText;
         }
-
         public static string Decrypt(string CipherText, int Key, Mode mode = Mode.Alphabet)
         {
             return Encrypt(CipherText, -Key, mode);
         }
-
         public static string Solve(string CipherText, Mode mode = Mode.Alphabet)
         {
             int bestKey = 0;
             float score = 0;
-            for (int key = 0; key <= 25; key++)
+            LetterFrequency FrequencyOrig = LetterFrequency.GenerateFrequency(CipherText);
+            if (mode == Mode.Alphabet)
             {
-                string temp = Decrypt(CipherText, key);
-               
-                float tempscore = LetterFrequency.GenerateFrequency(temp).Compare(LetterFrequency.EnglishLetterFrequency);
-                if (tempscore > score)
+                for (int key = 0; key <= 26; key++)
                 {
-                    score = tempscore;
-                    bestKey = key;
+                    LetterFrequency TestFrequency = FrequencyOrig.Shift(key);
+                    float tempScore = TestFrequency.Compare(LetterFrequency.EnglishLetterFrequency);
+                    if (tempScore > score)
+                    {
+                        bestKey = key;
+                        score = tempScore;
+                    }
                 }
             }
-            return Decrypt(CipherText, bestKey);
+            else
+            {
+                for (int key = 0; key <= 256; key++)
+                {
+                    LetterFrequency TestFrequency = LetterFrequency.GenerateFrequency(Decrypt(CipherText, key, Mode.CharacterUTF8));
+                    float tempScore = TestFrequency.Compare(LetterFrequency.EnglishLetterFrequency);
+                    if (tempScore > score)
+                    {
+                        bestKey = key;
+                        score = tempScore;
+                    }
+                }
+            }
+            return Decrypt(CipherText, bestKey, mode);
         }
     }
 }

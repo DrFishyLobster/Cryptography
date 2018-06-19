@@ -7,7 +7,7 @@ namespace CodeRunner
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine(CaeserCipher.Solve("QEB NRFZH YOLTK CLU GRJMP LSBO QEB IXWV ALD", Mode.Alphabet));
+            Console.WriteLine(CaeserCipher.Solve(CaeserCipher.Encrypt("Zambia is my country,. I love it", 10, Mode.Alphabet), Mode.CharacterUTF8));
         }
     }
 }
