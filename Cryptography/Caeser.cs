@@ -6,16 +6,16 @@
     {
         public static string Encrypt(string PlainText, int Key, Mode mode = Mode.Alphabet)
         {
-            //PlainText = PlainText.ToUpper();
+            if (mode == Mode.Alphabet) PlainText = PlainText.ToUpper();
             string CipherText = "";
             foreach (var character in PlainText)
             {
                 if (mode == Mode.Alphabet)
                 {
                     if (!character.IsAlphabetic()) continue;
-                    int positionInAlphabet = character.IsUpper() ? (int)character - 65 : (int)character - 97;
+                    int positionInAlphabet = (int)character - 65;
                     int shifted = (positionInAlphabet + Key % 26 + 26) % 26;
-                    CipherText += (char)(shifted + (character.IsUpper() ? 65 : 97));
+                    CipherText += (char)(shifted + 65);
                 }
                 else
                 {

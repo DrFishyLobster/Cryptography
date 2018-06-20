@@ -1,5 +1,6 @@
 ﻿using Cryptography;
 using System;
+using System.Collections.Generic;
 
 namespace CodeRunner
 {
@@ -7,7 +8,13 @@ namespace CodeRunner
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine(CaeserCipher.Solve(CaeserCipher.Encrypt("Zambia is my country,. I love it", 10, Mode.Alphabet), Mode.CharacterUTF8));
+            Console.WriteLine(LetterFrequency.GenerateFromBooks(new List<string>()
+            {
+                ".../.../.../Assets/PrideAndPrejudice.txt",
+                ".../.../.../Assets/AliceInWonderland.txt",
+                ".../.../.../Assets/MobyDick.txt"
+            }
+            ));
         }
     }
 }

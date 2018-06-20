@@ -1,15 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Cryptography
 {
     public class LetterFrequency
     {
-        public static LetterFrequency EnglishLetterFrequency = new LetterFrequency(new int[] { 8167, 1492, 2782, 4253,
-                12702, 2228, 2015, 6094, 6966, 153, 772, 4025, 2406,
-                6749, 7507,1929, 95, 5987, 6327, 9056, 2758, 978, 2360,
-                150, 1974, 74 });
+        private static char[] Characters = new char[39]
+        {
+            'A','B','C','D','E','F','G','H','I','J',
+            'K','L','M','N','O','P','Q','R','S','T',
+            'U','V','W','X','Y','Z',' ','.',',','?',
+            '!',':','\'','"','-','(',')','0','~'
+        };
+        public static LetterFrequency EnglishLetterFrequency = new LetterFrequency(new int[] {
+            131734, 28319, 40384, 67165, 205924, 36028, 34673,
+            106238, 114282, 2381, 12855, 70649, 41286, 113556, 121648,
+            28537, 2439, 93668, 106283, 150259, 46690, 15533, 38065, 2107,
+            32847, 1656, 339574, 15793, 31233, 1671, 2719, 633, 3693, 0
+            , 4598, 345, 350, 1608, 98331 });
 
-        private int[] Data = new int[26];
+        private int[] Data = new int[39];
         private int Total = 0;
 
         public LetterFrequency(int[] Data)
@@ -26,7 +37,7 @@ namespace Cryptography
         {
         }
 
-        public LetterFrequency Shift(int places)
+        public LetterFrequency Shift(int places) // FIX
         {
             places = ((places % 26) + 26) % 26;
             int[] TempData = new int[26];
@@ -43,8 +54,63 @@ namespace Cryptography
                 Total++;
                 Data[Letter.AlphabetPosition()]++;
             }
+            else
+            {
+                switch (Letter)
+                {
+                    case ' ':
+                        Data[26]++;
+                        break;
+
+                    case '.':
+                        Data[27]++;
+                        break;
+
+                    case ',':
+                        Data[28]++;
+                        break;
+
+                    case '?':
+                        Data[29]++;
+                        break;
+
+                    case '!':
+                        Data[30]++;
+                        break;
+
+                    case ':':
+                        Data[31]++;
+                        break;
+
+                    case '\'':
+                        Data[32]++;
+                        break;
+
+                    case '"':
+                        Data[33]++;
+                        break;
+
+                    case '-':
+                        Data[34]++;
+                        break;
+
+                    case '(':
+                        Data[35]++;
+                        break;
+
+                    case ')':
+                        Data[36]++;
+                        break;
+
+                    default:
+                        if (Letter.IsNumber()) Data[37]++;
+                        else Data[38]++;
+                        break;
+                }
+                Total++;
+            }
         }
-        public float Compare(LetterFrequency other)
+        public float Compare(LetterFrequency other) // FIX
         {
             float Difference = 0;
             for (int ch = 0; ch < 26; ch++)
@@ -55,12 +121,35 @@ namespace Cryptography
             return 1 - Difference;
         }
 
+        public static LetterFrequency GenerateFromBooks(List<string> locations)
+        {
+            LetterFrequency Output = new LetterFrequency();
+            foreach (var book in locations)
+            {
+                string temp = File.ReadAllText(book);
+                foreach (var character in temp)
+                {
+                    Output.Add(character);
+                }
+            }
+            return Output;
+        }
         public static LetterFrequency GenerateFrequency(string Data)
         {
             LetterFrequency output = new LetterFrequency();
             foreach (var character in Data)
             {
                 output.Add(character);
+            }
+            return output;
+        }
+
+        public override string ToString()
+        {
+            string output = "";
+            foreach (var letter in Data)
+            {
+                output += letter.ToString() + ",";
             }
             return output;
         }

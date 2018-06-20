@@ -19,5 +19,10 @@ namespace Cryptography
             return Letter.ToString().ToUpper()[0] == Letter;
         }
         public static bool IsLower(this char Letter) => IsUpper(Letter);
+        public static bool IsNumber(this char Letter)
+        {
+            if ((int)Letter >= 48 && (int)Letter <= 57) return true;
+            return false;
+        }
     }
 }
