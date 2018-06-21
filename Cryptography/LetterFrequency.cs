@@ -37,14 +37,22 @@ namespace Cryptography
         {
         }
 
-        public LetterFrequency Shift(int places) // FIX
+        public LetterFrequency Shift(int places, bool NonAlphabet)
         {
-            places = ((places % 26) + 26) % 26;
-            int[] TempData = new int[26];
-            for (int pos = 0; pos < 26; pos++)
+            places = ((places % (NonAlphabet ? 39 : 26)) + (NonAlphabet ? 39 : 26)) % (NonAlphabet ? 39 : 26);
+            int[] TempData = new int[39];
+            for (int pos = 0; pos < (NonAlphabet ? 39 : 26); pos++)
             {
-                TempData[(pos + places) % 26] = Data[pos];
+                TempData[(pos + places) % (NonAlphabet ? 39 : 26)] = Data[pos];
             }
+            if (!NonAlphabet)
+            {
+                for (int pos = 26; pos < 39; pos++)
+                {
+                    TempData[pos] = Data[pos];
+                }
+            }
+            return new LetterFrequency(TempData);
             return new LetterFrequency(TempData);
         }
         public void Add(char Letter)
@@ -110,10 +118,10 @@ namespace Cryptography
                 Total++;
             }
         }
-        public float Compare(LetterFrequency other) // FIX
+        public float Compare(LetterFrequency other, bool NonAlphabet)
         {
             float Difference = 0;
-            for (int ch = 0; ch < 26; ch++)
+            for (int ch = 0; ch < (NonAlphabet ? 39 : 26); ch++)
             {
                 Difference += Math.Abs(other.Data[ch] / (float)other.Total - Data[ch] / (float)Total);
             }

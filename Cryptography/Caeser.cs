@@ -37,8 +37,8 @@
             {
                 for (int key = 0; key <= 26; key++)
                 {
-                    LetterFrequency TestFrequency = FrequencyOrig.Shift(key);
-                    float tempScore = TestFrequency.Compare(LetterFrequency.EnglishLetterFrequency);
+                    LetterFrequency TestFrequency = FrequencyOrig.Shift(key, false);
+                    float tempScore = TestFrequency.Compare(LetterFrequency.EnglishLetterFrequency, false);
                     if (tempScore > score)
                     {
                         bestKey = key;
@@ -51,7 +51,7 @@
                 for (int key = 0; key <= 256; key++)
                 {
                     LetterFrequency TestFrequency = LetterFrequency.GenerateFrequency(Decrypt(CipherText, key, Mode.CharacterUTF8));
-                    float tempScore = TestFrequency.Compare(LetterFrequency.EnglishLetterFrequency);
+                    float tempScore = TestFrequency.Compare(LetterFrequency.EnglishLetterFrequency, true);
                     if (tempScore > score)
                     {
                         bestKey = key;
