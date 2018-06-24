@@ -1,6 +1,5 @@
 ﻿using Cryptography;
 using System;
-using System.Collections.Generic;
 
 namespace CodeRunner
 {
@@ -8,14 +7,19 @@ namespace CodeRunner
     {
         private static void Main(string[] args)
         {
-            //Console.WriteLine(LetterFrequency.GenerateFromBooks(new List<string>()
+            #region Gutenberg
+
+            //LetterFrequency.GenerateFromGutenberg("...\\...\\...\\Assets");
+            //Console.WriteLine(LetterFrequency.Guten);
+            //LetterFrequency.ConvertGutenberg("0,0,0,0,0,0,0,0,0,79,10270657,0,0,10270655,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,77255610,510354,50726,7207,2529,2064,68233,5009309,133533,134178,106938,4987,7050940,2787208,4891698,58981,174707,347791,169499,126170,107476,115100,98918,98172,133668,94193,413580,699509,406,75732,514,334866,2564,776881,329047,803033,473209,882662,284948,323704,203642,808651,424458,46565,916962,806052,437716,415580,617903,168094,444155,616679,471644,227368,316414,49294,71430,56823,17416,105729,51,105688,185,712474,12,28696633,3445786,11045252,13587499,55578285,4141806,3699801,3652314,26984520,1807283,274774,20081718,10532844,26341790,20901744,10082329,4226588,25426662,29306684,27089496,23164571,6087873,387509,1484905,1432419,646956,1094,24453,1277,87,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3119,14,0,5,0,0,32,394,0,33,0,44771,0,256,1,6,2337,9,52,11,27,16,3,31,0,0,1397,41291,5,9,0,107,9116,1,165,2,0,0,105,1165,2265,21165,686,15,0,3,302,108,0,5,4,28,763,0,114,14,0,43,1,32,19,0,0,10,374952,449,55784,82,81,0,1056,45526,271566,1520039,155865,4465,17,359,46015,11169,0,281,133,482,41553,33,1090,2,0,34647,126,36459,838,0,0,8");
+            //for (int l = 65; l < 65 + 26; l++)
             //{
-            //    ".../.../.../Assets/PrideAndPrejudice.txt",
-            //    ".../.../.../Assets/AliceInWonderland.txt",
-            //    ".../.../.../Assets/MobyDick.txt"
+            //    Console.WriteLine((char)l + " - " + 100 * (double)LetterFrequency.EnglishAlpha.Data[l] / LetterFrequency.EnglishAlpha.Total + "-" + 100 * (double)LetterFrequency.FrenchAlpha.Data[l] / LetterFrequency.FrenchAlpha.Total);
             //}
-            //));
-            Console.WriteLine(CaeserCipher.Solve(Console.ReadLine(),Mode.CharacterUTF8));
+
+            #endregion Gutenberg
+
+            Console.WriteLine(CaeserCipher.Solve("IKHBQBQCFUGKYIQBBKCU", Mode.Alphabet));
         }
     }
 }

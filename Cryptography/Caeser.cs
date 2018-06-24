@@ -1,6 +1,6 @@
 ﻿namespace Cryptography
 {
-    public enum Mode { Alphabet, CharacterUTF8, }
+    public enum Mode { Alphabet, CharacterUTF8 }
 
     public static class CaeserCipher
     {
@@ -31,35 +31,51 @@
         public static string Solve(string CipherText, Mode mode = Mode.Alphabet)
         {
             int bestKey = 0;
-            float score = 0;
-            LetterFrequency FrequencyOrig = LetterFrequency.GenerateFrequency(CipherText);
-            if (mode == Mode.Alphabet)
+            double bestScore = -1;
+            LetterFrequency.Language language = LetterFrequency.Language.English;
+            LetterFrequency frequency = LetterFrequency.GenerateFrequency(CipherText);
+
+            for (int keyAttempt = 0; keyAttempt < (mode == Mode.Alphabet ? 26 : 256); keyAttempt++)
             {
-                for (int key = 0; key <= 26; key++)
+                LetterFrequency tempFrequency = frequency.Shift(-keyAttempt, mode != Mode.Alphabet);
+                double tempScore = -1;
+                double tempID = -1;
+                if (mode == Mode.CharacterUTF8)
                 {
-                    LetterFrequency TestFrequency = FrequencyOrig.Shift(key, false);
-                    float tempScore = TestFrequency.Compare(LetterFrequency.EnglishLetterFrequency, false);
-                    if (tempScore > score)
+                    for (int ID = 0; ID < LetterFrequency.AllLanguages.Length; ID++)
                     {
-                        bestKey = key;
-                        score = tempScore;
+                        double langScore = tempFrequency.Compare(LetterFrequency.AllLanguages[ID]);
+                        if (langScore > tempScore)
+                        {
+                            tempScore = langScore;
+                            tempID = ID;
+                        }
                     }
                 }
-            }
-            else
-            {
-                for (int key = 0; key <= 256; key++)
+                else
                 {
-                    LetterFrequency TestFrequency = LetterFrequency.GenerateFrequency(Decrypt(CipherText, key, Mode.CharacterUTF8));
-                    float tempScore = TestFrequency.Compare(LetterFrequency.EnglishLetterFrequency, true);
-                    if (tempScore > score)
+                    for (int ID = 0; ID < LetterFrequency.AlphaLanguages.Length; ID++)
                     {
-                        bestKey = key;
-                        score = tempScore;
+                        double langScore = tempFrequency.Compare(LetterFrequency.AlphaLanguages[ID]);
+                        if (langScore > tempScore)
+                        {
+                            tempScore = langScore;
+                            tempID = ID;
+                        }
                     }
                 }
+                if (tempScore > bestScore)
+                {
+                    bestScore = tempScore;
+                    language = (LetterFrequency.Language)tempID;
+                    bestKey = keyAttempt;
+                }
             }
-            return Decrypt(CipherText, bestKey, mode);
+
+            string output = "The best language of choice was: " + language.ToString() + "\n";
+            output += "The best key of choice was " + bestKey + " with a score of " + bestScore + "\nDecoded message is:\n";
+            output += Decrypt(CipherText, bestKey, mode);
+            return output;
         }
     }
 }
