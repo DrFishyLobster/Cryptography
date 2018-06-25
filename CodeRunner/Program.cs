@@ -18,8 +18,43 @@ namespace CodeRunner
             //}
 
             #endregion Gutenberg
+            string text = @"And did those feet in ancient time
+Walk upon England's mountains green?
+And was the holy Lamb of God
+On England's pleasant pastures seen?
+And did the countenance divine
+Shine forth upon our clouded hills?
+And was Jerusalem builded here
+Among those dark Satanic Mills?
 
-            Console.WriteLine(CaeserCipher.Solve("IKHBQBQCFUGKYIQBBKCU", Mode.Alphabet));
+Bring me my bow of burning gold!
+Bring me my arrows of desire!
+Bring me my spear! O clouds, unfold!
+Bring me my chariot of fire!
+I will not cease from mental fight
+Nor shall my sword sleep in my hand
+Till we have built Jerusalem
+In England's green and pleasant Land";
+            string Cipher = @"BOE EJE UIPTF GFFU JO BODJFOU UJNF
+XBML VQPO FOHMBOE'T NPVOUBJOT HSFFO?
+BOE XBT UIF IPMZ MBNC PG HPE
+PO FOHMBOE'T QMFBTBOU QBTUVSFT TFFO?
+BOE EJE UIF DPVOUFOBODF EJWJOF
+TIJOF GPSUI VQPO PVS DMPVEFE IJMMT?
+BOE XBT KFSVTBMFN CVJMEFE IFSF
+BNPOH UIPTF EBSL TBUBOJD NJMMT?
+
+CSJOH NF NZ CPX PG CVSOJOH HPME!
+CSJOH NF NZ BSSPXT PG EFTJSF!
+CSJOH NF NZ TQFBS! P DMPVET, VOGPME!
+CSJOH NF NZ DIBSJPU PG GJSF!
+J XJMM OPU DFBTF GSPN NFOUBM GJHIU
+OPS TIBMM NZ TXPSE TMFFQ JO NZ IBOE
+UJMM XF IBWF CVJMU KFSVTBMFN
+JO FOHMBOE'T HSFFO BOE QMFBTBOU MBOE";
+            Console.WriteLine(CaeserCipher.Encrypt(text,1,Mode.Alphabet));
+            Console.WriteLine(text.LanguageDetection());
+            Console.WriteLine(CaeserCipher.Solve(Cipher, Mode.Alphabet));
         }
     }
 }

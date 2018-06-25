@@ -24,5 +24,21 @@ namespace Cryptography
             if ((int)Letter >= 48 && (int)Letter <= 57) return true;
             return false;
         }
+        public static Language LanguageDetection(this string Text)
+        {
+            var tempFrequnecy = LetterFrequency.GenerateFrequency(Text);
+            double tempScore = -1;
+            int tempID = -1;
+            for (int ID = 0; ID < LetterFrequency.AllLanguages.Length; ID++)
+            {
+                double langScore = tempFrequnecy.Compare(LetterFrequency.AllLanguages[ID]);
+                if (langScore > tempScore)
+                {
+                    tempScore = langScore;
+                    tempID = ID;
+                }
+            }
+            return (Language)tempID;
+        }
     }
 }

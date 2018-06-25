@@ -12,7 +12,7 @@
             {
                 if (mode == Mode.Alphabet)
                 {
-                    if (!character.IsAlphabetic()) continue;
+                    if (!character.IsAlphabetic()) { CipherText += character; continue; }
                     int positionInAlphabet = (int)character - 65;
                     int shifted = (positionInAlphabet + Key % 26 + 26) % 26;
                     CipherText += (char)(shifted + 65);
@@ -32,7 +32,7 @@
         {
             int bestKey = 0;
             double bestScore = -1;
-            LetterFrequency.Language language = LetterFrequency.Language.English;
+            Language language = Language.English;
             LetterFrequency frequency = LetterFrequency.GenerateFrequency(CipherText);
 
             for (int keyAttempt = 0; keyAttempt < (mode == Mode.Alphabet ? 26 : 256); keyAttempt++)
@@ -67,7 +67,7 @@
                 if (tempScore > bestScore)
                 {
                     bestScore = tempScore;
-                    language = (LetterFrequency.Language)tempID;
+                    language = (Language)tempID;
                     bestKey = keyAttempt;
                 }
             }

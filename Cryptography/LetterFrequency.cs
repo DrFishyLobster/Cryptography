@@ -5,6 +5,8 @@ using System.IO.Compression;
 
 namespace Cryptography
 {
+    public enum Language { English, French, Italian };
+
     public class LetterFrequency
     {
         public long[] Data = new long[256];
@@ -12,7 +14,6 @@ namespace Cryptography
 
         #region Languages
 
-        public enum Language { English, French, Italian };
 
         public static LetterFrequency EnglishAll = new LetterFrequency(new long[] { 0, 0, 0, 1, 0, 0, 0, 0, 0, 4929, 53003760, 0, 20, 52963144,
             0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 447714195, 1516180, 9822098, 28482, 43898, 7812, 53086, 6214926, 758894, 760728,
